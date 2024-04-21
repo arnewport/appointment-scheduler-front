@@ -1,7 +1,7 @@
 import { useState } from "react";
-import useAppointments from '../hooks/usePokemonLinks';
+import useAppointments from '../hooks/useAppointments';
 
-function AppointmentTable({key}) {
+function AppointmentTable() {
 
     const [position, setPosition] = useState(0);
     const [appointmentArray, loading] = useAppointments();
@@ -33,8 +33,8 @@ function AppointmentTable({key}) {
                     {appointmentArray
                     .slice(position, position + 10)
                     .map(a => (
-                        <tr key={a.id} className="align-middle text-center">
-                            <td>{a.id}</td>
+                        <tr key={a.appointmentId} className="align-middle text-center">
+                            <td>{a.appointmentId}</td>
                             <td>{a.patientFirstName + " " + a.patientLastName}</td>
                             <td>{"Dr. " + a.providerFirstName + " " + a.providerLastName}</td>
                             <td>{a.date}</td>
@@ -51,3 +51,5 @@ function AppointmentTable({key}) {
         </div>
     );
 }
+
+export default AppointmentTable;
