@@ -6,7 +6,7 @@ function App() {
       <Nav />
       <main className="container">
         <Routes>
-          <Route path="/" element={<Landing />} />
+          <Route path="/" element={<AppointmentTable key={position} />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </main>

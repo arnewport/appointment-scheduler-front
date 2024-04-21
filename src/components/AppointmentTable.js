@@ -1,10 +1,16 @@
 import { useState } from "react";
 import useAppointments from '../hooks/usePokemonLinks';
 
-function AppointmentTable() {
+function AppointmentTable({key}) {
 
-    const [position, setPosition] = useState(1);
-    const [appointmentArray, loading] = useAppointments(position);
+    const [position, setPosition] = useState(0);
+    const [appointmentArray, loading] = useAppointments();
+
+    const alterPosition = (position, incrementor) => {
+        position = position + incrementor;
+        position = (position > appointmentArray.length - 10) ? appointmentArray.length - 10 : (position < 1) ? 0 : position;
+        return position;
+    }
 
     if (loading) {
         return null;
@@ -25,6 +31,7 @@ function AppointmentTable() {
                 </thead>
                 <tbody>
                     {appointmentArray
+                    .slice(position, position + 10)
                     .map(a => (
                         <tr key={a.id} className="align-middle text-center">
                             <td>{a.id}</td>
@@ -43,5 +50,4 @@ function AppointmentTable() {
             </div>
         </div>
     );
-
 }
