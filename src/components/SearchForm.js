@@ -1,5 +1,5 @@
 import{ useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAppointmentContext } from '../context/AppointmentContext';
 
 const INITIAL_SEARCH = {
@@ -14,11 +14,11 @@ const INITIAL_SEARCH = {
 
 function SearchForm() {
 
-    
-
     const [searchCriteria, setSearchCriteria] = useState(INITIAL_SEARCH);
     const [errors, setErrors] = useState([]);
+    const navigate = useNavigate();
     const { fetchAppointments } = useAppointmentContext();
+
 
     function handleChange(evt) {
 
@@ -30,9 +30,14 @@ function SearchForm() {
 
     }
 
-    function handleSubmit(evt) {
+    async function handleSubmit(evt) {
         evt.preventDefault();
-        fetchAppointments(searchCriteria);
+        try {
+            await fetchAppointments(searchCriteria);
+            navigate("/");
+        } catch (error) {
+            console.error('Error fetching appointments:', error);
+        }
     }
 
 

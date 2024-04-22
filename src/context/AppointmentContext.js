@@ -28,7 +28,6 @@ export const AppointmentProvider = ({ children }) => {
     };
 
     const fetchData = async (link, request) => {
-        console.log(request);
         const response = await fetch(link, request);
 
         if (!response.ok) {
