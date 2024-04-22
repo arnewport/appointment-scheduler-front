@@ -41,7 +41,7 @@ function CreateForm() {
         fetch("http://localhost:8080/api/v1/appointment/create", config)
             .then(response => {
                 if (response.ok) {
-                    navigate("/appointments");
+                    navigate("/");
                 } else {
                     return response.json();
                 }
@@ -78,7 +78,7 @@ function CreateForm() {
                     </div>
                     <div className="col">
                         <label className="form-label" htmlFor="patientLastName">Patient Last Name</label>
-                        <input id="patientLastName" name="patientLastName" type="text" className="form-control"
+                        <input id="patientLastName" name="patientLastName" type="text" className="form-control" required
                             onChange={handleChange} value={appointment.patientLastName} />
                     </div>
                 </div>
@@ -100,18 +100,18 @@ function CreateForm() {
                     </div>
                     <div className="col">
                         <label className="form-label" htmlFor="startTime">Start Time</label>
-                        <input id="startTime" name="startTime" type="number" className="form-control"
+                        <input id="startTime" name="startTime" type="time" className="form-control" required
                             onChange={handleChange} value={appointment.startTime} />
                     </div>
                     <div className="col">
                         <label className="form-label" htmlFor="endTime">End Time</label>
-                        <input id="endTime" name="endTime" type="number" className="form-control"
+                        <input id="endTime" name="endTime" type="time" className="form-control" required
                             onChange={handleChange} value={appointment.endTime} />
                     </div>
                 </div>
                 <div className="mb-3">
                     <button type="submit" className="btn btn-info me-2">Save</button>
-                    <Link className="btn btn-warning" to="/appointments">Cancel</Link>
+                    <Link className="btn btn-warning" to="/">Cancel</Link>
                 </div>
             </form>
         </>

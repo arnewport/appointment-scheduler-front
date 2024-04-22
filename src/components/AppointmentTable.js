@@ -1,10 +1,10 @@
 import { useState } from "react";
-import useAppointments from '../hooks/useAppointments';
+import { useAppointmentContext } from '../context/AppointmentContext';
 
 function AppointmentTable() {
 
+    const { appointmentArray, loading } = useAppointmentContext();
     const [position, setPosition] = useState(0);
-    const [appointmentArray, loading] = useAppointments();
 
     const alterPosition = (position, incrementor) => {
         position = position + incrementor;

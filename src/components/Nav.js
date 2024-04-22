@@ -13,7 +13,7 @@ function Nav() {
                 <Link id="btnCreate" to="/create" className="btn btn-info">Create</Link>
             </div>
             <div className="d-flex flex-grow-1 justify-content-end">
-                <Link id="btnSearch" to="/search" className="btn btn-info">Search</Link>
+                <Link id="btnSearch" to="/searching" className="btn btn-info">Search</Link>
             </div>
         </div>
     );

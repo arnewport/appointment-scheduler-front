@@ -1,6 +1,6 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import useAppointments from '../hooks/useAppointments';
+import{ useState } from "react";
+import { Link } from "react-router-dom";
+import { useAppointmentContext } from '../context/AppointmentContext';
 
 const INITIAL_SEARCH = {
     patientFirstName: "",
@@ -14,9 +14,11 @@ const INITIAL_SEARCH = {
 
 function SearchForm() {
 
+    
+
     const [searchCriteria, setSearchCriteria] = useState(INITIAL_SEARCH);
     const [errors, setErrors] = useState([]);
-    const navigate = useNavigate();
+    const { fetchAppointments } = useAppointmentContext();
 
     function handleChange(evt) {
 
@@ -30,37 +32,9 @@ function SearchForm() {
 
     function handleSubmit(evt) {
         evt.preventDefault();
- 
-        const config = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(search)
-        }
-
-        fetch("http://localhost:8080/api/v1/appointment/search", config)
-            .then(response => {
-                if (response.ok) {
-                    navigate("/appointments");
-                } else {
-                    return response.json();
-                }
-            })
-            .then(errs => {
-                if (errs) {
-                    return Promise.reject(errs);
-                }
-            })
-            .catch(errs => {
-                if (errs.length) {
-                    setErrors(errs);
-                } else {
-                    setErrors([errs]);
-                }
-            });
-        
+        fetchAppointments(searchCriteria);
     }
+
 
     return (
         <>
@@ -74,45 +48,53 @@ function SearchForm() {
                 <div className="row mb-3">
                     <div className="col">
                         <label className="form-label" htmlFor="patientFirstName">Patient First Name</label>
-                        <input id="patientFirstName" name="patientFirstName" type="text" className="form-control" required
-                            onChange={handleChange} value={search.patientFirstName} />
+                        <input id="patientFirstName" name="patientFirstName" type="text" className="form-control"
+                            onChange={handleChange} value={searchCriteria.patientFirstName} />
                     </div>
                     <div className="col">
                         <label className="form-label" htmlFor="patientLastName">Patient Last Name</label>
                         <input id="patientLastName" name="patientLastName" type="text" className="form-control"
-                            onChange={handleChange} value={search.patientLastName} />
+                            onChange={handleChange} value={searchCriteria.patientLastName} />
                     </div>
                 </div>
                 <div className="mb-3">
                     <label className="form-label" htmlFor="providerFirstName">Provider First Name</label>
-                    <input id="providerFirstName" name="providerFirstName" type="text" className="form-control" required
-                        onChange={handleChange} value={search.providerFirstName} />
+                    <input id="providerFirstName" name="providerFirstName" type="text" className="form-control"
+                        onChange={handleChange} value={searchCriteria.providerFirstName} />
                 </div>
                 <div className="mb-3">
                     <label className="form-label" htmlFor="providerLastName">Provider Last Name</label>
-                    <input id="providerLastName" name="providerLastName" type="text" className="form-control" required
-                        onChange={handleChange} value={search.providerLastName} />
+                    <input id="providerLastName" name="providerLastName" type="text" className="form-control"
+                        onChange={handleChange} value={searchCriteria.providerLastName} />
                 </div>
                 <div className="row mb-3">
-                    <div className="col">
-                        <label className="form-label" htmlFor="ascending">Ascending</label>
-                        <input id="ascending" name="ascending" type="form-check-input" className="form-control"
-                            onChange={handleChange} value={search.ascending} />
+                <div className="col">
+                    <div className="form-check">
+                            <input 
+                                id="ascending" 
+                                name="ascending" 
+                                type="checkbox"
+                                className="form-check-input" 
+                                onChange={handleChange} 
+                                checked={searchCriteria.ascending}
+                            />
+                            <label className="form-check-label" htmlFor="ascending">Ascending</label>
+                        </div>
                     </div>
                     <div className="col">
                         <label className="form-label" htmlFor="afterDate">After Date</label>
-                        <input id="afterDate" name="afterDate" type="date" className="form-control" required
-                            onChange={handleChange} value={search.afterDate} />
+                        <input id="afterDate" name="afterDate" type="date" className="form-control"
+                            onChange={handleChange} value={searchCriteria.afterDate} />
                     </div>
                     <div className="col">
                         <label className="form-label" htmlFor="beforeDate">Before Date</label>
-                        <input id="beforeDate" name="beforeDate" type="date" className="form-control" required
-                            onChange={handleChange} value={search.beforeDate} />
+                        <input id="beforeDate" name="beforeDate" type="date" className="form-control"
+                            onChange={handleChange} value={searchCriteria.beforeDate} />
                     </div>
                 </div>
                 <div className="mb-3">
                     <button type="submit" className="btn btn-info me-2">Search</button>
-                    <Link className="btn btn-warning" to="/appointments">Cancel</Link>
+                    <Link className="btn btn-warning" to="/">Cancel</Link>
                 </div>
             </form>
         </>
