@@ -104,7 +104,7 @@ function CreateForm() {
                     </div>
                 </div>
                 <div className="mb-3">
-                    <button type="submit" className="btn btn-info me-2">Save</button>
+                    <button type="submit" className="btn btn-info me-2">Create</button>
                     <Link className="btn btn-warning" to="/">Cancel</Link>
                 </div>
             </form>

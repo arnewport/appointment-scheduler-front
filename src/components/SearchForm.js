@@ -43,7 +43,7 @@ function SearchForm() {
 
     return (
         <>
-            <h1 className="display-6">Create an Appointment</h1>
+            <h1 className="display-6">Search for an Appointment</h1>
             <form onSubmit={handleSubmit}>
                 <div className="row mb-3">
                     <div className="col">
