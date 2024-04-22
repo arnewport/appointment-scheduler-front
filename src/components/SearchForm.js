@@ -44,11 +44,6 @@ function SearchForm() {
     return (
         <>
             <h1 className="display-6">Create an Appointment</h1>
-            {errors && errors.length > 0 && <div className="alert alert-danger">
-                <ul className="mb-0">
-                    {errors.map(err => <li key={err}>{err}</li>)}
-                </ul>
-            </div>}
             <form onSubmit={handleSubmit}>
                 <div className="row mb-3">
                     <div className="col">
